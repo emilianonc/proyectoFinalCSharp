@@ -8,37 +8,27 @@ namespace Emiliano_Chiapponi.Controllers
 
     public class UsuarioController : ControllerBase
     {
-        // Probado desde Postman:  (Devuelve: Los atributos del objeto Usuario cuyo NombreUsuario es igual al argumento y un "200 OK" )
-        // (GET "http://localhost:5232/Usuario" Params KEY = nombreUsuario, VALUE = eperez123)
-        //[HttpGet(Name = "TraerUsuario")] // Se recibe el parámetro nombreUsuario desde la URL. El cuerpo de la petición siempre está vacío.
-        [HttpGet("{nombreUsuario}")]
-        public Usuario TraerUsuario(string nombreUsuario)
+        //  GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   
+
+
+        [HttpGet(Name = "TraerUsuario_conNombreUsuario")]
+        public Usuario TraerUsuario_conNombreUsuario(string nombreUsuario)
         {
-            return UsuarioHandler.TraerUsuario(nombreUsuario);
+            return UsuarioHandler.TraerUsuario_conNombreUsuario(nombreUsuario);
         }
 
 
-
-        [HttpGet("{nombreUsuario}/{contraseña}")] // Se reciben los parámetros nombreUsuario y contraseña desde la URL. El cuerpo de la petición siempre está vacío.
+        /*[HttpGet("{nombreUsuario}/{contraseña}")]
         public Usuario InicioDeSesion(string nombreUsuario, string contraseña)
         {
             return UsuarioHandler.InicioDeSesion(nombreUsuario, contraseña);
-        }
+        }*/
 
 
+        //  PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   
 
-        // Probado desde Postman: (Devuelve: TRUE y un "200 OK". Se valida que se modificó el usuario en BD)
-        // (PUT "http://localhost:5232/Usuario" Body raw JSON)
-        /*{
-            "Id" : 2 ,
-            "Nombre" : "Ernesto_" ,
-            "Apellido" : "Perez_" ,
-            "NombreUsuario" : "eperez123" ,
-            "Contraseña" : "SoyErnestoPerez2" ,
-            "Mail" : "ernesto@perez.com.ar"
-        } */
-        [HttpPut(Name = "ModificarUsuario")] // No se reciben argumentos desde la URL. El cuerpo de la petición debe contener los atributos del Usuario
-                                             // El nombre de los atributos, utilizado en el JSON (Postman), debe coincidir con el nombre de los atributos definidos en PutUsuario.
+
+        [HttpPut(Name = "ModificarUsuario")]
         public bool ModificarUsuario([FromBody] PutUsuario usuario)
         {
             try
@@ -46,12 +36,12 @@ namespace Emiliano_Chiapponi.Controllers
                 return UsuarioHandler.ModificarUsuario(
                     new Usuario
                     {
-                        id = usuario.Id,
-                        nombre = usuario.Nombre,
-                        apellido = usuario.Apellido,
-                        nombreUsuario = usuario.NombreUsuario,
-                        contraseña = usuario.Contraseña,
-                        mail = usuario.Mail
+                        Id = usuario.Id,
+                        Nombre = usuario.Nombre,
+                        Apellido = usuario.Apellido,
+                        NombreUsuario = usuario.NombreUsuario,
+                        Contraseña = usuario.Contraseña,
+                        Mail = usuario.Mail
                     }
                 );
             }
@@ -61,6 +51,8 @@ namespace Emiliano_Chiapponi.Controllers
             }
         }
 
+
+        // POST   POST   POST   POST   POST   POST   POST   POST   POST   POST   POST   POST   POST   POST   POST   POST   POST   POST   POST   POST   POST   POST   
 
 
         [HttpPost(Name = "CrearUsuario")]
@@ -71,11 +63,11 @@ namespace Emiliano_Chiapponi.Controllers
                 return UsuarioHandler.CrearUsuario(
                     new Usuario
                     {
-                        nombre = usuario.Nombre,
-                        apellido = usuario.Apellido,
-                        nombreUsuario = usuario.NombreUsuario,
-                        contraseña = usuario.Contraseña,
-                        mail = usuario.Mail
+                        Nombre = usuario.Nombre,
+                        Apellido = usuario.Apellido,
+                        NombreUsuario = usuario.NombreUsuario,
+                        Contraseña = usuario.Contraseña,
+                        Mail = usuario.Mail
                     }
                 );
             }
@@ -86,9 +78,11 @@ namespace Emiliano_Chiapponi.Controllers
         }
 
 
+        // DELETE   DELETE    DELETE   DELETE    DELETE   DELETE    DELETE   DELETE    DELETE   DELETE    DELETE   DELETE    DELETE   DELETE    DELETE   DELETE    
 
-        [HttpDelete("{id}")]
-        public bool EliminarUsuario(long id)
+
+        [HttpDelete(Name = "EliminarUsuario")]
+        public bool EliminarUsuario([FromBody] long id)
         {
             try
             {

@@ -12,11 +12,16 @@ namespace Emiliano_Chiapponi
 
         public const string connectionString = "Server=DESKTOP-2QV2INM;Database=SistemaGestion;Trusted_Connection=True";
 
-        public static List<Venta> TraerVentas(long idUsuario) // Traer Ventas: método que debe traer todas las ventas de la base que contienen productos de un determinado Usuario.
+
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+        // Método que trae todas las ventas de la BD que contienen productos de un determinado Usuario.
+        public static List<Venta> TraerVentas_conIdUsuario(long idUsuario)
         {
-            List<Venta> ventas = new List<Venta>(); // Creo una lista de objetos de clase "Venta". Va a ser lo que devuelva el método.
+            List<Venta> ventas = new List<Venta>();
         
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString)) // Creo un objeto de tipo SqlConnection con el connectionString de mi BD.
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
                 const string query =    "SELECT v.Id, v.Comentarios " + // Query que me devuelve las ventas que contienen productos con IdUsuario = idUsuario.
                                         "FROM Venta AS v " +
@@ -26,109 +31,152 @@ namespace Emiliano_Chiapponi
                                         "ON pv.IdProducto = p.Id " +
                                         "WHERE p.IdUsuario = @idUsuario ";
 
-                using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection)) // Creo un objeto SqlCommand con una query definida previamente.
+                using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
                 {
                     var parameterIdUsuario = new SqlParameter("idUsuario", SqlDbType.BigInt);
                     parameterIdUsuario.Value = idUsuario;
                     sqlCommand.Parameters.Add(parameterIdUsuario);
 
-                    sqlConnection.Open(); // Abro la conexión con la BD
+                    sqlConnection.Open();
 
-                    using (SqlDataReader dataReader = sqlCommand.ExecuteReader()) // Creo objeto SqlDataReader para ir explorando la BD.
+                    using (SqlDataReader dataReader = sqlCommand.ExecuteReader())
                     {
-                        if (dataReader.HasRows) // Me aseguro que haya filas para leer .
+                        if (dataReader.HasRows)
                         {
-                            while (dataReader.Read()) // Leo una fila.
+                            while (dataReader.Read())
                             {
-                                Venta venta = new Venta(); // Creo un nuevo objeto de clase Venta.
+                                Venta venta = new Venta();
 
-                                // Actualizo todos los atributos de venta con los valores obtenidos de la BD.
-                                venta.id = Convert.ToInt32(dataReader["Id"]);
-                                venta.comentarios = dataReader["Comentarios"].ToString();
+                                venta.Id = Convert.ToInt32(dataReader["Id"]);
+                                venta.Comentarios = dataReader["Comentarios"].ToString();
 
-                                ventas.Add(venta); // Agrego el objeto "venta" a la lista "ventas".
+                                ventas.Add(venta);
                             }
                         }
                     }
-                    sqlConnection.Close(); // Cierro la conexión con la BD.
+                    sqlConnection.Close();
                 }
             }
             return ventas;
         }
 
 
-        
-        public static long CargarVenta(Venta venta) // Cargar venta: se utiliza para poder hacer la primera parte de CargarVentaProyecto();
-        {
-            bool resultado = false; // Creo una variable tipo bool que va a indicar si se pudo o no cargar la venta.
-            long idVenta = 0; // Creo una variable a la cual le asigno el valor de Id de la venta cargada.
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString)) // Creo un objeto de tipo SqlConnection con el connectionString de mi BD.
+
+        // Método que recibe como parámetro una Venta y debe cargarla en BD.
+        public static long CargarVenta(Venta venta)
+        {
+            bool resultado = false;
+            long idVenta = 0;
+
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
                 string queryInsert = "INSERT INTO [SistemaGestion].[dbo].[Venta] (Comentarios) " + // Query que me permite agregar una Venta.
                                         "VALUES (@comentarios) " +
                                         "SELECT @@IDENTITY";
 
                 var parameterComentarios = new SqlParameter("comentarios", SqlDbType.VarChar);
-                parameterComentarios.Value = venta.comentarios;
+                parameterComentarios.Value = venta.Comentarios;
 
-                sqlConnection.Open(); // Abro la conexión con la BD.
+                sqlConnection.Open();
 
-                using (SqlCommand sqlCommand = new SqlCommand(queryInsert, sqlConnection)) // Creo un objeto SqlCommand con una query que selecciona todas las columnas de la tabla Producto.
+                using (SqlCommand sqlCommand = new SqlCommand(queryInsert, sqlConnection))
                 {
                     sqlCommand.Parameters.Add(parameterComentarios);
                     idVenta = Convert.ToInt64(sqlCommand.ExecuteScalar());
                 }
-
-                sqlConnection.Close(); // Cierro la conexión con la BD.
+                sqlConnection.Close();
             }
             return idVenta;
         }
 
 
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-        /*public List<Venta> TraerVentas() // Método que trae todas las ventas de la BD
+
+        // Método que trae todas las ventas de la BD
+        public static List<Venta> TraerVentas()
         {
-            List<Venta> ventas = new List<Venta>(); // Creo una lista de objetos de clase Venta. Va a ser lo que devuelva el método
+            List<Venta> ventas = new List<Venta>();
 
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString)) // Creo un objeto de tipo SqlConnection con el connectionString de mi BD
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
-                using (SqlCommand sqlCommand = new SqlCommand("SELECT * FROM [SistemaGestion].[dbo].[Venta]", sqlConnection)) // Creo un objeto SqlCommand con una query que selecciona todas las columnas de la tabla Venta
+                using (SqlCommand sqlCommand = new SqlCommand("SELECT * FROM [SistemaGestion].[dbo].[Venta]", sqlConnection))
                 {
-                    sqlConnection.Open(); // Abro la conexión con la BD
+                    sqlConnection.Open();
 
-                    using (SqlDataReader dataReader = sqlCommand.ExecuteReader()) // Creo objeto SqlDataReader para ir explorando la BD
+                    using (SqlDataReader dataReader = sqlCommand.ExecuteReader())
                     {
-                        if (dataReader.HasRows) // Me aseguro que haya filas para leer 
+                        if (dataReader.HasRows)
                         {
-                            while (dataReader.Read()) // Leo una fila
+                            while (dataReader.Read())
                             {
-                                Venta venta = new Venta(); // Creo un nuevo objeto de clase Venta
+                                Venta venta = new Venta();
 
-                                // Actualizo todos los atributos de venta con los valores obtenidos de la BD
-                                venta.id = Convert.ToInt32(dataReader["Id"]);
-                                venta.comentarios = dataReader["Comentarios"].ToString();
+                                venta.Id = Convert.ToInt32(dataReader["Id"]);
+                                venta.Comentarios = dataReader["Comentarios"].ToString();
 
-                                ventas.Add(venta); // Agrego el objeto "venta" a la lista "ventas"
+                                ventas.Add(venta);
                             }
                         }
                     }
-                    sqlConnection.Close(); // Cierro la conexión con la BD
+                    sqlConnection.Close();
                 }
             }
             return ventas;
-        }*/
+        }
 
 
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-        // Permite ver por consola los atributos de los objetos ProductoVendido contenidos en la lista que se pasa como argumento.
+
+        // Método que elimina de la tabla Venta la fila con Id = id
+        public static bool EliminarVenta(long id)
+        {
+            bool resultado = false;
+            int rowsAffected = 0;
+
+            if (id <= 0) // Valido el id recibido
+            {
+                return false;
+            }
+
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                string queryDelete = "DELETE FROM [SistemaGestion].[dbo].[Venta] WHERE Id = @id";
+
+                var parameterId = new SqlParameter("id", SqlDbType.BigInt);
+                parameterId.Value = id;
+
+                sqlConnection.Open();
+
+                using (SqlCommand sqlCommand = new SqlCommand(queryDelete, sqlConnection))
+                {
+                    sqlCommand.Parameters.Add(parameterId);
+                    rowsAffected = sqlCommand.ExecuteNonQuery();
+                }
+                sqlConnection.Close();
+            }
+            if (rowsAffected == 1)
+            {
+                resultado = true;
+            }
+            return resultado;
+        }
+
+
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+        // Método que permite ver por consola los atributos de los objetos ProductoVendido contenidos en la lista que se pasa como argumento.
         public static void MostrarVentas(List<Venta> ventas)
         {
             Console.WriteLine("Venta en BD:");
             foreach (Venta item in ventas)
             {
-                Console.WriteLine("id: " + item.id.ToString() +
-                                    "\tcomentarios: " + item.comentarios.ToString());
+                Console.WriteLine("id: " + item.Id.ToString() +
+                                    "\tcomentarios: " + item.Comentarios.ToString());
             }
             Console.WriteLine(" "); // Solo para separar de la próxima linea que se imprima
         }

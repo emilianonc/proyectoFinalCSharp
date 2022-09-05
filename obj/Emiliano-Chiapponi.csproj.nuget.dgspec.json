@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\EmilianoC\\Desktop\\Code\\C#\\CoderHouse\\proyectoFinal_cSharp\\Emiliano-Chiapponi.csproj": {}
+    "C:\\Users\\EmilianoC\\Desktop\\Code\\C#\\CoderHouse\\proyectoFinalCSharp\\Emiliano-Chiapponi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\EmilianoC\\Desktop\\Code\\C#\\CoderHouse\\proyectoFinal_cSharp\\Emiliano-Chiapponi.csproj": {
+    "C:\\Users\\EmilianoC\\Desktop\\Code\\C#\\CoderHouse\\proyectoFinalCSharp\\Emiliano-Chiapponi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\EmilianoC\\Desktop\\Code\\C#\\CoderHouse\\proyectoFinal_cSharp\\Emiliano-Chiapponi.csproj",
+        "projectUniqueName": "C:\\Users\\EmilianoC\\Desktop\\Code\\C#\\CoderHouse\\proyectoFinalCSharp\\Emiliano-Chiapponi.csproj",
         "projectName": "Emiliano-Chiapponi",
-        "projectPath": "C:\\Users\\EmilianoC\\Desktop\\Code\\C#\\CoderHouse\\proyectoFinal_cSharp\\Emiliano-Chiapponi.csproj",
+        "projectPath": "C:\\Users\\EmilianoC\\Desktop\\Code\\C#\\CoderHouse\\proyectoFinalCSharp\\Emiliano-Chiapponi.csproj",
         "packagesPath": "C:\\Users\\EmilianoC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\EmilianoC\\Desktop\\Code\\C#\\CoderHouse\\proyectoFinal_cSharp\\obj\\",
+        "outputPath": "C:\\Users\\EmilianoC\\Desktop\\Code\\C#\\CoderHouse\\proyectoFinalCSharp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\EmilianoC\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -8,13 +8,13 @@ namespace Emiliano_Chiapponi.Controllers
 
     public class ProductoVendidoController : ControllerBase
     {
-        // Probado desde Postman:  (Devuelve: lista de objetos ProductoVendido que tienen IdUsuario = idUsuario en la tabla producto y un "200 OK" )
-        // (GET "http://localhost:5232/ProductoVendido" Params KEY = idUsuario, VALUE = 2)
-        // GET http://localhost:5232/ProductoVendido?idUsuario=2
-        [HttpGet(Name = "TraerProductosVendidos")] // Se recibe el parámetro idUsuario desde la URL. El cuerpo de la petición siempre está vacío.
-        public List<ProductoVendido> TraerProductosVendidos(long idUsuario)
+        //  GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   
+
+
+        [HttpGet(Name = "TraerProductosVendidos_conIdUsuario")]
+        public List<ProductoVendido> TraerProductosVendidos_conIdUsuario(long idUsuario)
         {
-            return ProductoVendidoHandler.TraerProductosVendidos(idUsuario);
+            return ProductoVendidoHandler.TraerProductosVendidos_conIdUsuario(idUsuario);
         }
     }
 }
