@@ -65,7 +65,7 @@ namespace Emiliano_Chiapponi.Controllers
                     new Producto
                     {
                         Id = producto.Id,
-                        Descripciones = producto.Descripcion,
+                        Descripciones = producto.Descripciones,
                         Costo = producto.Costo,
                         PrecioVenta = producto.PrecioVenta,
                         Stock = producto.Stock,
@@ -104,7 +104,7 @@ namespace Emiliano_Chiapponi.Controllers
                 return ProductoHandler.CrearProducto(
                     new Producto
                     {
-                        Descripciones = producto.Descripcion,
+                        Descripciones = producto.Descripciones,
                         Costo = producto.Costo,
                         PrecioVenta = producto.PrecioVenta,
                         Stock = producto.Stock,

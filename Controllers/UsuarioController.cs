@@ -26,7 +26,15 @@ namespace Emiliano_Chiapponi.Controllers
         {
             try
             {
-                return UsuarioHandler.ModificarUsuario(
+                Usuario usuarioExistente = new Usuario();
+                usuarioExistente = UsuarioHandler.TraerUsuario_conId(usuario.Id);
+                if (usuarioExistente.Id <= 0)
+                {
+                    return false; // El Id de Usuario no existe en BD, no hay nada para modificar, debe crearse primero.
+                }
+                else
+                {
+                    return UsuarioHandler.ModificarUsuario(
                     new Usuario
                     {
                         Id = usuario.Id,
@@ -36,7 +44,8 @@ namespace Emiliano_Chiapponi.Controllers
                         Contraseña = usuario.Contraseña,
                         Mail = usuario.Mail
                     }
-                );
+                    );
+                }
             }
             catch (Exception ex)
             {
