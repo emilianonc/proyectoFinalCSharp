@@ -6,15 +6,15 @@ namespace Emiliano_Chiapponi.Controllers
     [ApiController]
     [Route("[controller]")]
 
-    public class LoginController : ControllerBase
+    public class NombreLocalController : ControllerBase
     {
         //  GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   
 
 
-        [HttpGet(Name = "InicioDeSesion")] // Se reciben los parámetros nombreUsuario y contraseña desde la URL. El cuerpo de la petición siempre está vacío.
-        public Usuario InicioDeSesion(string nombreUsuario, string contraseña)
+        [HttpGet(Name = "TraerNombreDelLocal")] // No se reciben parámetros desde la URL. El cuerpo de la petición siempre está vacío.
+        public string TraerNombreDelLocal()
         {
-            return UsuarioHandler.InicioDeSesion(nombreUsuario, contraseña);
+            return "Tienda El Pollo";
         }
     }
 }

@@ -11,15 +11,8 @@ namespace Emiliano_Chiapponi.Controllers
         //  GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   
 
 
-        [HttpGet("{idUsuario}")]
-        public List<Venta> TraerVentas_conIdUsuario(long idUsuario)
-        {
-            return VentaHandler.TraerVentas_conIdUsuario(idUsuario);
-        }
-
-
         [HttpGet(Name = "TraerVentas")]
-        public List<Venta> TraerVentas()
+        public List<ProductoVendido> TraerVentas()
         {
             return VentaHandler.TraerVentas();
         }
@@ -64,7 +57,7 @@ namespace Emiliano_Chiapponi.Controllers
             foreach (PostVenta item in listaDeProductosVendidos)
             {
                 producto = ProductoHandler.TraerProducto_conId(item.Id);
-                if (producto.Id == 0) // Verifico que todos los Id de Producto recibidos se encuentren en la BD
+                if (producto.Id <= 0) // Verifico que todos los Id de Producto recibidos sean válidos
                 {
                     return false;
                 }
@@ -74,8 +67,13 @@ namespace Emiliano_Chiapponi.Controllers
                     return false; 
                 }
 
+                if (producto.Stock < item.Stock) // Verifico que el stock del producto sea suficiente para realizar la venta
+                {
+                    return false; 
+                }
+
                 usuario = UsuarioHandler.TraerUsuario_conId(item.IdUsuario);
-                if (usuario.Id == 0) // Verifico que el Id de Usuario asociado a la venta se encuentre en la BD
+                if (usuario.Id <= 0) // Verifico que el Id de Usuario asociado a la venta se encuentre en la BD
                 {
                     return false;
                 }
@@ -133,24 +131,21 @@ namespace Emiliano_Chiapponi.Controllers
 
 
         [HttpDelete(Name = "EliminarVenta")]
-        public bool EliminarVenta(long id)
+        public bool EliminarVenta([FromBody] long idVenta)
         {
             bool resultado = false;
 
             // Valido que el id recibido sea valido
-            if (id <= 0)
+            if (idVenta <= 0)
             {
                 return false;
             }
 
-            // Elimino la venta de la tabla Venta
-            VentaHandler.EliminarVenta(id);
-            
             // Obtengo Id y stock de cada ProductoVendido correspondiente a la Venta
             List<ProductoVendido> productosVendidosDeLaVenta = new List<ProductoVendido>();
-            productosVendidosDeLaVenta = ProductoVendidoHandler.TraerProductosVendidos_conIdVenta(id);
+            productosVendidosDeLaVenta = ProductoVendidoHandler.TraerProductosVendidos_conIdVenta(idVenta);
             // Elimino los productos correspondientes de la tabla ProductoVendido
-            if (ProductoVendidoHandler.EliminarProductoVendido_conIdVenta(id))
+            if (ProductoVendidoHandler.EliminarProductoVendido_conIdVenta(idVenta))
             {
                 // Si se pudieron eliminar los elementos de ProductoVendido, actualizo el stock
                 Producto producto = new Producto();
@@ -158,14 +153,22 @@ namespace Emiliano_Chiapponi.Controllers
                 {
                     producto.Id = item.IdProducto;
                     producto = ProductoHandler.ConsultarStock(producto);
-                    producto.Stock = producto.Stock - item.Stock;
+                    producto.Stock = producto.Stock + item.Stock;
                     resultado = ProductoHandler.ActualizarStock(producto);
                     if (resultado == false) // Si no se puede actualizar el stock de alguno de los productos rompo el bucle y devuelvo falso
                     {
-                        break;
+                        return false;
                     }
                 }
-                return resultado;
+
+                if (VentaHandler.EliminarVenta(idVenta))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {

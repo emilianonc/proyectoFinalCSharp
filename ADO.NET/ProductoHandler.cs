@@ -215,7 +215,7 @@ namespace Emiliano_Chiapponi
 
                 // Creo y defino todos los objetos SqlParameter necesarios para definir queryInsert.
                 var parameterDescripciones = new SqlParameter("descripciones", SqlDbType.VarChar);  // Creo un nuevo objeto SqlParameter, para especificar "@descripciones", declarado en queryInsert. Defino el nombre del parámetro (que debe coincidir con el nombre utilizado en la query) y defino el tipo de dato de la columna del parámetro.
-                parameterDescripciones.Value = producto.Descripcion;                                // Asigno valor al sqlParameter.
+                parameterDescripciones.Value = producto.Descripciones;                                // Asigno valor al sqlParameter.
 
                 var parameterCosto = new SqlParameter("costo", SqlDbType.Money);
                 parameterCosto.Value = producto.Costo;
@@ -281,7 +281,7 @@ namespace Emiliano_Chiapponi
                 parameterId.Value = producto.Id;                            // Asigno valor a sqlParameter.
 
                 var parameterDescripciones = new SqlParameter("descripciones", SqlDbType.VarChar);
-                parameterDescripciones.Value = producto.Descripcion;
+                parameterDescripciones.Value = producto.Descripciones;
 
                 var parameterCosto = new SqlParameter("costo", SqlDbType.Money);
                 parameterCosto.Value = producto.Costo;
@@ -410,7 +410,7 @@ namespace Emiliano_Chiapponi
             foreach (Producto item in productosEnBd)
             {
                 Console.WriteLine("id: " + item.Id.ToString() +
-                                    "\tDescripcion: " + item.Descripcion +
+                                    "\tDescripcion: " + item.Descripciones +
                                     "\tCosto: " + item.Costo.ToString() +
                                     "\tPrecioVenta: " + item.PrecioVenta.ToString() +
                                     "\tStock: " + item.Stock.ToString() +

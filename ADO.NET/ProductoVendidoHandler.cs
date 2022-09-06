@@ -240,44 +240,6 @@ namespace Emiliano_Chiapponi
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 
-        /*public List<ProductoVendido> TraerProductosVendidos_conIdUsuario() // Método que trae todos los productos vendidos de la BD
-        {
-            List<ProductoVendido> productosVendidos = new List<ProductoVendido>(); // Creo una lista de objetos de clase ProductoVendido. Va a ser lo que devuelva el método
-
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString)) // Creo un objeto de tipo SqlConnection con el connectionString de mi BD
-            {
-                using (SqlCommand sqlCommand = new SqlCommand("SELECT * FROM [SistemaGestion].[dbo].[ProductoVendido]", sqlConnection)) // Creo un objeto SqlCommand con una query que selecciona todas las columnas de la tabla ProductoVendido
-                {
-                    sqlConnection.Open(); // Abro la conexión con la BD
-
-                    using (SqlDataReader dataReader = sqlCommand.ExecuteReader()) // Creo objeto SqlDataReader para ir explorando la BD
-                    {
-                        if (dataReader.HasRows) // Me aseguro que haya filas para leer 
-                        {
-                            while (dataReader.Read()) // Leo una fila
-                            {
-                                ProductoVendido productoVendido = new ProductoVendido(); // Creo un nuevo objeto de clase ProductoVendido
-                                
-                                // Actualizo todos los atributos de ProductoVendido con los valores obtenidos de la BD
-                                productoVendido.id = Convert.ToInt32(dataReader["Id"]);
-                                productoVendido.idProducto = Convert.ToInt32(dataReader["IdProducto"]);
-                                productoVendido.stock = Convert.ToInt32(dataReader["Stock"]);
-                                productoVendido.idVenta = Convert.ToInt32(dataReader["IdVenta"]);
-
-                                productosVendidos.Add(productoVendido); // Agrego el objeto "productoVendido" a la lista "productosVendidos"
-                            }   
-                        }
-                    }
-                    sqlConnection.Close(); // Cierro la conexión con la BD
-                }
-            }
-            return productosVendidos;
-        }*/
-
-
-        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-
         // Método que permite ver por consola los atributos de los objetos ProductoVendido contenidos en la lista que se pasa como argumento.
         public static void MostrarProductosVendidos(List<ProductoVendido> productosVendidos)
         {

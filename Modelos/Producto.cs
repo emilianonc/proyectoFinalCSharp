@@ -5,7 +5,7 @@
     {
         // Las propiedades privadas para que solo se pueda acceder y modificar las mismas vís los métodos SET y GET qye yo defino. // Nombre del atributo con mayuscula para definir nombre del método SET y GET en minuscula
         private long _Id; 
-        private string _Descripcion;
+        private string _Descripciones;
         private double _Costo;
         private double _PrecioVenta;
         private int _Stock;
@@ -16,7 +16,7 @@
         public Producto()
         {
             this._Id = 0;
-            this._Descripcion = String.Empty;
+            this._Descripciones = String.Empty;
             this._Costo = 0.0;
             this._PrecioVenta = 0.0;
             this._Stock = 0;
@@ -25,10 +25,10 @@
 
 
         // Consutructor con parámetros. Debe tener el mismo nombre que la clase. Inciaciliza, según defina el usuario, los atributos del objeto.
-        public Producto(long id, string descripcion, double costo, double precioVenta, int stock, long idUsuario)
+        public Producto(long id, string descripciones, double costo, double precioVenta, int stock, long idUsuario)
         {
             this._Id = id;
-            this._Descripcion = descripcion;
+            this._Descripciones = descripciones;
             this._Costo = costo;
             this._PrecioVenta = precioVenta;
             this._Stock = stock;
@@ -38,7 +38,7 @@
 
         // Métodos SET y GET para los atributos del objeto. Si no tuviese estos métodos, al ser los atributos private, no tendría forma de modificar los mismos, por fuera de la clase.
         public long Id { get { return _Id; } set { _Id = value; } }
-        public string Descripcion { get { return _Descripcion; } set { _Descripcion = value; } }
+        public string Descripciones { get { return _Descripciones; } set { _Descripciones = value; } }
         public double Costo { get { return _Costo; } set { _Costo = value; } }
         public double PrecioVenta { get { return _PrecioVenta; } set { _PrecioVenta = value; } }
         public int Stock { get { return _Stock; } set { _Stock = value; } }
@@ -50,7 +50,7 @@
         {
             Console.WriteLine(  "\nProducto:" +
                                 "\n   id = " + _Id.ToString() +
-                                "\n   descripcion = " + _Descripcion +
+                                "\n   descripcion = " + _Descripciones +
                                 "\n   costo = " + _Costo.ToString() +
                                 "\n   precioVenta = " + _PrecioVenta.ToString() +
                                 "\n   stock = " + _Stock.ToString() +

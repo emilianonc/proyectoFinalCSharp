@@ -11,18 +11,11 @@ namespace Emiliano_Chiapponi.Controllers
         //  GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   
 
 
-        [HttpGet(Name = "TraerUsuario_conNombreUsuario")]
+        [HttpGet(Name = "TraerUsuario")]
         public Usuario TraerUsuario_conNombreUsuario(string nombreUsuario)
         {
             return UsuarioHandler.TraerUsuario_conNombreUsuario(nombreUsuario);
         }
-
-
-        /*[HttpGet("{nombreUsuario}/{contraseña}")]
-        public Usuario InicioDeSesion(string nombreUsuario, string contraseña)
-        {
-            return UsuarioHandler.InicioDeSesion(nombreUsuario, contraseña);
-        }*/
 
 
         //  PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   PUT   

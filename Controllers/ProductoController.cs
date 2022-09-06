@@ -43,10 +43,10 @@ namespace Emiliano_Chiapponi.Controllers
         //      PUT "http://localhost:5232/Producto" Body raw JSON
         //      {
         //          "Id" : 4,
-        //          "Descripcion" : "Musculosa_",   // Se agrega _
-        //          "Costo" : 310,                  // Se sube 10
-        //          "PrecioVenta" : 1200,           // Se sube 100
-        //          "Stock" : 30,                   // Se sube 10
+        //          "Descripcion" : "Musculosa_",
+        //          "Costo" : 310,
+        //          "PrecioVenta" : 1200,
+        //          "Stock" : 30,
         //          "IdUsuario" :  1
         //      }
         // Se recibe:
@@ -65,7 +65,7 @@ namespace Emiliano_Chiapponi.Controllers
                     new Producto
                     {
                         Id = producto.Id,
-                        Descripcion = producto.Descripcion,
+                        Descripciones = producto.Descripcion,
                         Costo = producto.Costo,
                         PrecioVenta = producto.PrecioVenta,
                         Stock = producto.Stock,
@@ -104,7 +104,7 @@ namespace Emiliano_Chiapponi.Controllers
                 return ProductoHandler.CrearProducto(
                     new Producto
                     {
-                        Descripcion = producto.Descripcion,
+                        Descripciones = producto.Descripcion,
                         Costo = producto.Costo,
                         PrecioVenta = producto.PrecioVenta,
                         Stock = producto.Stock,

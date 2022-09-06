@@ -11,7 +11,7 @@ namespace Emiliano_Chiapponi.Controllers
         //  GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   GET   
 
 
-        [HttpGet(Name = "TraerProductosVendidos_conIdUsuario")]
+        [HttpGet(Name = "TraerProductosVendidos")]
         public List<ProductoVendido> TraerProductosVendidos_conIdUsuario(long idUsuario)
         {
             return ProductoVendidoHandler.TraerProductosVendidos_conIdUsuario(idUsuario);
